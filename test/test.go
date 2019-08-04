@@ -54,9 +54,11 @@ func makeJsonValue(_c chan []float64) string {
 	// 메모리 사용량 가져오기
 	memP, _ := mem.VirtualMemory()
 	//		fmt.Printf("cpu: %f%%, mem: %f%%\n", cpuP[0], memP.UsedPercent)
-
+	
 	// Disk 사용량 가져오기
-	d, _ := disk.Usage("/")
+	d, err := disk.Usage("/")
+	check(err)
+	
 	v := &SystemInfo{
 		time.Now().Unix(),
 		getHostName(),

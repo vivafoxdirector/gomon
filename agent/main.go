@@ -1,8 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
+	"net"
+	"net/http"
+	"net/http/httputil"
 	"os"
 	"strconv"
 	"time"
@@ -31,18 +35,28 @@ type Disk struct {
 }
 
 func main() {
-	printResourceInfo()
+	agentStart()
 }
 
 // 정보 가져오는 주기는 3 sec로 한다
-func printResourceInfo() {
+func agentStart() {
 	// Cpu채널 생성
 	_c := make(chan []float64)
 	for true {
 		// 1. make Json Data
 		fmt.Println(makeJsonValue(_c))
 		// 2. Send to Server
+
 	}
+}
+
+func sendToServer(json string) {
+	conn, _ := net.Dial("tcp", "localhost:9999")
+	request, _ := http.NewRequest("GET", "http://localhost:9999", nil)
+	request.Write(conn)
+	response, _ := http.ReadResponse(bufio.NewReader(conn), request)
+	dump, _ := httputil.DumpResponse(response, true)
+	fmt.Println(string(dump))
 }
 
 func makeJsonValue(_c chan []float64) string {
