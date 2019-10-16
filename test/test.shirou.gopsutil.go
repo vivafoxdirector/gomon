@@ -137,3 +137,7 @@ func printMemInfo() {
 		//fmt.Println(v)
 	}
 }
+
+func main() {
+	printResourceInfo()
+}

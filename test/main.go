@@ -1,7 +1,7 @@
 package main
 
 func main() {
-	printResourceInfo()
+	//printResourceInfo()
 
 	go_ansi_test()
 }
