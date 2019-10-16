@@ -30,10 +30,6 @@ type Disk struct {
 	Used  string `json:"used"`
 }
 
-func main() {
-	printResourceInfo()
-}
-
 // 정보 가져오는 주기는 3 sec로 한다
 func printResourceInfo() {
 	// Cpu채널 생성
@@ -54,11 +50,11 @@ func makeJsonValue(_c chan []float64) string {
 	// 메모리 사용량 가져오기
 	memP, _ := mem.VirtualMemory()
 	//		fmt.Printf("cpu: %f%%, mem: %f%%\n", cpuP[0], memP.UsedPercent)
-	
+
 	// Disk 사용량 가져오기
 	d, err := disk.Usage("/")
 	check(err)
-	
+
 	v := &SystemInfo{
 		time.Now().Unix(),
 		getHostName(),
