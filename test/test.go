@@ -30,10 +30,6 @@ type Disk struct {
 	Used  string `json:"used"`
 }
 
-func main() {
-	printResourceInfo()
-}
-
 // 정보 가져오는 주기는 3 sec로 한다
 func printResourceInfo() {
 	// Cpu채널 생성
@@ -54,11 +50,11 @@ func makeJsonValue(_c chan []float64) string {
 	// 메모리 사용량 가져오기
 	memP, _ := mem.VirtualMemory()
 	//		fmt.Printf("cpu: %f%%, mem: %f%%\n", cpuP[0], memP.UsedPercent)
-	
+
 	// Disk 사용량 가져오기
 	d, err := disk.Usage("/")
 	check(err)
-	
+
 	v := &SystemInfo{
 		time.Now().Unix(),
 		getHostName(),
@@ -117,6 +113,23 @@ func printCpuPersentage() {
 	fmt.Printf("%f%%\n", <-cpuP)
 }
 
+func printCpu() {
+	// CPU
+	duration := time.Duration(3) * time.Second
+	percentage, err := cpu.Percent(duration, true)
+	if err != nil {
+		return
+	}
+	fmt.Println("CPU%: ", percentage)
+	cpuSum := float64(0)
+	for _, per := range percentage {
+		cpuSum = cpuSum + per
+	}
+	fmt.Println("CPUSUM: ", cpuSum)
+	cpuAvg := uint32(cpuSum / float64(len(percentage)))
+	fmt.Println("CPUAVG: ", cpuAvg)
+}
+
 func printCpuInfo() {
 	// Cpu 정보 표시
 	c, _ := cpu.Times(false)
@@ -140,4 +153,9 @@ func printMemInfo() {
 		// convert to JSON. String() is also implemented
 		//fmt.Println(v)
 	}
+}
+
+func main() {
+	printResourceInfo()
+	//printCpu()
 }
