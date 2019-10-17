@@ -7,8 +7,8 @@ import (
 	"sync"
 	"time"
 
-	"bitbucket.org/vivafoxdirector/gomon/common"
 	"github.com/ant0ine/go-json-rest/rest"
+	"github.com/vivafoxdirector/gomon/common"
 )
 
 // You will test with insomnia tool
