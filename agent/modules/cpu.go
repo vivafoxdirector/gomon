@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"bitbucket.org/vivafoxdirector/gomon/common"
+	"github.com/vivafoxdirector/gomon/common"
 )
 
 type Cpu struct {
@@ -12,13 +12,13 @@ type Cpu struct {
 }
 
 func (c Cpu) Extract() {
-	record := common.Record{Code: "cpu", Time: time.Now(), "CPU": "CPU"}
+	record := common.Record{Code: "cpu", Time: time.Now(), Value: map[string]string{"CPU": "CPU"}}
 	fmt.Println(record)
 }
 
 func NewCPU() Module {
 	cpu := Cpu{
-		CPU: "",
+		CPU: "aaaaa",
 	}
 	return Module(cpu)
 }

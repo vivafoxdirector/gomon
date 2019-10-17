@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 
-	"bitbucket.org/vivafoxdirector/gomon/agent/modules"
+	"github.com/vivafoxdirector/gomon/agent/modules"
 )
 
 /**
